@@ -4,14 +4,12 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
 
   <body ng-app="app">
     <div="container">
-      <div ng-controller="ListarAtividades as lista">
-        <!-- <p>{{ lista.atividades }}</p> -->
+      <div>
         <h1 class="text-center">Calculadora de Impostos</h1>
         <hr>
         <h3 class="text-center">Escolha o tipo de imposto da sua empresa:</h3>
@@ -24,36 +22,42 @@
           <p class="text-center">Antes de calcular, não esqueça de clicar em um dos botões acima!</p>
         </div>
 
-        <div ng-show="mostrarSimples" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+        <div ng-show="mostrarSimples" ng-controller="CalcularSimplesNacional as simples" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
           <h3 class="text-center"><b>Simples Nacional</b></h3>
           <label for="fatAnterior">Faturamento Anterior:</label>
           <div class="input-group">
             <span class="input-group-addon">R$</span>
-            <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses"></input>
+            <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses" ng-model="simples.fatAnterior"></input>
           </div>
 
-          <label for="fatAnterior">Faturamento Atual:</label>
+          <label for="faturamento">Faturamento Atual:</label>
           <div class="input-group">
             <span class="input-group-addon">R$</span>
-            <input type="text" class="form-control" placeholder="Faturamento do mês atual"></input>
+            <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="simples.faturamento"></input>
           </div>
 
           <label for="folha">Folha de Pagamento:</label>
           <div class="input-group">
             <span class="input-group-addon">R$</span>
-            <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual"></input>
+            <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="simples.folha"></input>
           </div>
 
           <label for="codAtividade">Atividade da Empresa: </label>
           <div class="input-group">
-            <select id="atividades" ng-model="blah" ng-options="descricao for descricao in lista.descricaoAtividades"></select>
+            <select id="atividades" ng-model="simples.descAtividade" ng-options="descricao for descricao in simples.descricaoAtividades"></select>
           </div>
 
           <div class="text-center">
-            <button class="btn btn-success btn-lg">Calcular</button>
+            <button class="btn btn-success btn-lg" ng-click="simples.calcularImpostoSimples(simples.descAtividade); mostrarResultado = true">Calcular</button>
           </div>
           <hr>
-          <h2 class="text-center">Output</h2>
+          <h2 class="text-center" ng-show="mostrarResultado">Resultado:</h2>
+          <div class="text-center col-md-6" ng-repeat="imposto in simples.impostoSimples">
+            <h3>Tipo: {{ imposto['descricao'] }}</h3>
+            <h3>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</h3>
+            <h3>Alíquota: {{ imposto['aliquota'] }}%</h3>
+            <hr>
+          </div>
         </div>
 
         <div ng-show="mostrarLucro" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
@@ -80,5 +84,5 @@
       </div>
     </div>
   </body>
-  
+
 </html>
