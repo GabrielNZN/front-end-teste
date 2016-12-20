@@ -1,0 +1,14 @@
+#atividades {
+  width: 610px;
+}
+
+div {
+  padding: 0 0 10px 0;
+}
+
+#vazio {
+  border: 1px dashed blue;
+  border-radius: 5px;
+  position: relative;
+  padding-top: 20px;
+}

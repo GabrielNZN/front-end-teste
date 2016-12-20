@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+
+  <body ng-app="app">
+    <div="container">
+      <div ng-controller="ListarAtividades as lista">
+        <!-- <p>{{ lista.atividades }}</p> -->
+        <h1 class="text-center">Calculadora de Impostos</h1>
+        <hr>
+        <h3 class="text-center">Escolha o tipo de imposto da sua empresa:</h3>
+        <div class="text-center">
+          <button ng-click="mostrarSimples = !mostrarSimples" class="btn btn-primary btn-lg">Simples Nacional</button>
+          <button ng-click="mostrarLucro = !mostrarLucro" class="btn btn-primary btn-lg">Lucro Presumido</button>
+        </div>
+
+        <div ng-hide="mostrarSimples || mostrarLucro" id="vazio" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+          <p class="text-center">Antes de calcular, não esqueça de clicar em um dos botões acima!</p>
+        </div>
+
+        <div ng-show="mostrarSimples" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+          <h3 class="text-center"><b>Simples Nacional</b></h3>
+          <label for="fatAnterior">Faturamento Anterior:</label>
+          <div class="input-group">
+            <span class="input-group-addon">R$</span>
+            <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses"></input>
+          </div>
+
+          <label for="fatAnterior">Faturamento Atual:</label>
+          <div class="input-group">
+            <span class="input-group-addon">R$</span>
+            <input type="text" class="form-control" placeholder="Faturamento do mês atual"></input>
+          </div>
+
+          <label for="folha">Folha de Pagamento:</label>
+          <div class="input-group">
+            <span class="input-group-addon">R$</span>
+            <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual"></input>
+          </div>
+
+          <label for="codAtividade">Atividade da Empresa: </label>
+          <div class="input-group">
+            <select id="atividades" ng-model="blah" ng-options="descricao for descricao in lista.descricaoAtividades"></select>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-success btn-lg">Calcular</button>
+          </div>
+          <hr>
+          <h2 class="text-center">Output</h2>
+        </div>
+
+        <div ng-show="mostrarLucro" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+          <h3 class="text-center"><b>Lucro Presumido</b></h3>
+
+          <label for="faturamento">Faturamento Atual:</label>
+          <div class="input-group">
+            <span class="input-group-addon">R$</span>
+            <input type="text" class="form-control" placeholder="Faturamento do mês atual"></input>
+          </div>
+
+          <label for="folha">Folha de Pagamento:</label>
+          <div class="input-group">
+            <span class="input-group-addon">R$</span>
+            <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual"></input>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-success btn-lg">Calcular</button>
+          </div>
+          <hr>
+          <h2 class="text-center">Output</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+</html>
