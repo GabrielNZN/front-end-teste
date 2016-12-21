@@ -13,11 +13,11 @@
   function CalcularSimplesNacional(SimplesNacionalService, AtividadesService) {
     var simples = this;
 
-    simples.fatAnterior   = 0.0;
-    simples.faturamento   = 0.0;
-    simples.folha         = 0.0;
-    simples.codAtividade  = 0;
-    simples.descAtividade = "";
+    simples.fatAnterior;
+    simples.faturamento;
+    simples.folha;
+    simples.codAtividade;
+    simples.descAtividade;
 
     // Resolver promessa do serviço de atividades
     var promiseAtividades = AtividadesService.getAtividades();
