@@ -57,6 +57,7 @@
     };
   }
 
+  // Controller responsável em calcular imposto de Lucro Presumido
   CalcularLucroPresumido.$inject = ['LucroPresumidoService'];
   function CalcularLucroPresumido(LucroPresumidoService) {
     var lucro = this;
@@ -64,6 +65,7 @@
     lucro.faturamento;
     lucro.folha;
 
+    // Calcular valor total do Lucro Presumido
     lucro.calcularImpostoLucro = function () {
       var promiseLucro = LucroPresumidoService.getLucroPresumido(lucro.faturamento, lucro.folha);
 
@@ -111,10 +113,12 @@
     };
   }
 
+  // Service de requisição dos valores do Lucro Presumido
   LucroPresumidoService.$inject = ['$http', 'ApiBasePath'];
   function LucroPresumidoService($http, ApiBasePath) {
     var service = this;
 
+    // Request e envio de parâmetros para o serviço de cálculo do Lucro Presumido
     service.getLucroPresumido = function (faturamento, folha) {
       var response = $http({
         method: "GET",

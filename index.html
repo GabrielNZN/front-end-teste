@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <script type="text/javascript" src="app.js"></script>
 </head>
 <body ng-app="app">
   <div class="container">
@@ -21,7 +20,7 @@
       <div class="col-md-3 col-sm-3 col-xs-1 visible-xs img">
         <img src="xs-img.png" />
       </div>
-
+      <!-- Botões responsáveis em mostrar os tipos de impostos -->
       <div class="btn-group btn-group-justified">
         <div class="btn-group" role="group">
           <button ng-click="mostrarSimples = !mostrarSimples; mostrarLucro = false" type="button" class="btn btn-default btn-primary">Simples Nacional</button>
@@ -31,11 +30,11 @@
         </div>
       </div>
     </div>
-
+    <!-- Aviso de escolha de imposto -->
     <div ng-hide="mostrarSimples || mostrarLucro" id="vazio" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
       <p class="text-center">Antes de calcular, não esqueça de clicar em um dos botões acima!</p>
     </div>
-
+    <!-- Início do cálculo de imposto Simples Nacional -->
     <div ng-show="mostrarSimples" ng-controller="CalcularSimplesNacional as simples" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
       <h3 class="text-center"><b>Simples Nacional</b></h3>
       <label for="fatAnterior">Faturamento Anterior:</label>
@@ -65,6 +64,7 @@
         <button class="btn btn-success btn-lg" ng-click="simples.calcularImpostoSimples(simples.descAtividade); mostrarResultado = true">Calcular</button>
       </div>
       <hr>
+      <!-- Apresentação da saída dos dados do Simples Nacional -->
       <h3 class="text-center" ng-show="mostrarResultado">Resultado:</h3>
       <div class="text-center col-md-6" ng-repeat="imposto in simples.impostoSimples">
         <p>Tipo: {{ imposto['descricao'] }}</p>
@@ -73,7 +73,7 @@
         <hr>
       </div>
     </div>
-
+    <!-- Início de cálculo de imposto Lucro Presumido -->
     <div ng-show="mostrarLucro" ng-controller="CalcularLucroPresumido as lucro" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
       <h3 class="text-center"><b>Lucro Presumido</b></h3>
 
@@ -93,6 +93,7 @@
         <button class="btn btn-success btn-lg" ng-click="lucro.calcularImpostoLucro(); mostrarResultado = true">Calcular</button>
       </div>
       <hr>
+      <!-- Apresentação da saída dos dados do Lucro Presumido -->
       <h3 class="resultado text-center" ng-show="mostrarResultado">Resultado:</h3>
       <div class="text-center col-md-4" ng-repeat="imposto in lucro.impostoLucro">
         <p>Tipo: {{ imposto['descricao'] }}</p>
@@ -102,5 +103,7 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
