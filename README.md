@@ -1,6 +1,6 @@
 # Calculadora de Impostos
 
-### Projeto desenvolvido como teste Front-end para a Contabilizei**
+### Projeto desenvolvido como teste Front-end para a Contabilizei
 Esse repositório contém o projeto teste realizado durante o processo seletivo para a posição de desenvolvedor Front-end na Contabilizei.
 
 ### O que é isso?
@@ -20,7 +20,7 @@ Foram usadas as seguintes tecnologias no projeto:
 
 # Processo
 
-Inicialmente o processo foi analisar o tempo disponível (7 dias), onde o mesmo foi dividido em etapas.
+Inicialmente o processo foi analisar o projeto com base no tempo disponível (7 dias), onde o mesmo foi dividido em etapas.
 * A primeira etapa foi criar os protótipos de baixa fidelidade da calculadora.
 * Logo em seguida as telas foram prototipadas em alta fidelidade em HTML e Bootstrap. (Podem ser encontradas no repositório)
 * Para requisitar o serviço RESTful disponibilizado foi usado o serviço $http do AngularJS.
