@@ -65,35 +65,41 @@
         <button class="btn btn-success btn-lg" ng-click="simples.calcularImpostoSimples(simples.descAtividade); mostrarResultado = true">Calcular</button>
       </div>
       <hr>
-      <h2 class="text-center" ng-show="mostrarResultado">Resultado:</h2>
+      <h3 class="text-center" ng-show="mostrarResultado">Resultado:</h3>
       <div class="text-center col-md-6" ng-repeat="imposto in simples.impostoSimples">
-        <h3>Tipo: {{ imposto['descricao'] }}</h3>
-        <h3>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</h3>
-        <h3>Alíquota: {{ imposto['aliquota'] }}%</h3>
+        <p>Tipo: {{ imposto['descricao'] }}</p>
+        <p>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</p>
+        <p>Alíquota: {{ imposto['aliquota'] }}%</p>
         <hr>
       </div>
     </div>
 
-    <div ng-show="mostrarLucro" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+    <div ng-show="mostrarLucro" ng-controller="CalcularLucroPresumido as lucro" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
       <h3 class="text-center"><b>Lucro Presumido</b></h3>
 
       <label for="faturamento">Faturamento Atual:</label>
       <div class="input-group">
         <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Faturamento do mês atual"></input>
+        <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="lucro.faturamento"></input>
       </div>
 
       <label for="folha">Folha de Pagamento:</label>
       <div class="input-group">
         <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual"></input>
+        <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="lucro.folha"></input>
       </div>
 
       <div class="text-center">
-        <button class="btn btn-success btn-lg">Calcular</button>
+        <button class="btn btn-success btn-lg" ng-click="lucro.calcularImpostoLucro(); mostrarResultado = true">Calcular</button>
       </div>
       <hr>
-      <h2 class="text-center">Output</h2>
+      <h3 class="resultado text-center" ng-show="mostrarResultado">Resultado:</h3>
+      <div class="text-center col-md-4" ng-repeat="imposto in lucro.impostoLucro">
+        <p>Tipo: {{ imposto['descricao'] }}</p>
+        <p>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</p>
+        <p>Alíquota: {{ imposto['aliquota'] }}%</p>
+        <hr>
+      </div>
     </div>
   </div>
 </body>

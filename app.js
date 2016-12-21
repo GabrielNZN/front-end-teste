@@ -3,9 +3,10 @@
 
   angular.module('app', [])
   .controller('CalcularSimplesNacional', CalcularSimplesNacional)
+  .controller('CalcularLucroPresumido', CalcularLucroPresumido)
   .service('AtividadesService', AtividadesService)
   .service('SimplesNacionalService', SimplesNacionalService)
-  // .service('LucroPresumidoService', LucroPresumidoService)
+  .service('LucroPresumidoService', LucroPresumidoService)
   .constant('ApiBasePath', "https://app-dot-contabilizei-jobs.appspot.com");
 
   // Controller responsável pelo cálculo de imposto Simples Nacional
@@ -56,6 +57,29 @@
     };
   }
 
+  CalcularLucroPresumido.$inject = ['LucroPresumidoService'];
+  function CalcularLucroPresumido(LucroPresumidoService) {
+    var lucro = this;
+
+    lucro.faturamento;
+    lucro.folha;
+
+    lucro.calcularImpostoLucro = function () {
+      var promiseLucro = LucroPresumidoService.getLucroPresumido(lucro.faturamento, lucro.folha);
+
+      promiseLucro.then(function (response) {
+        lucro.resultados = response.data;
+        lucro.impostoLucro = lucro.resultados['objects'].map(function (r) {
+          return r;
+        });
+        console.log(lucro.impostoLucro);
+      })
+      .catch(function (error) {
+        console.log('Oops, não pude processar os dados do Lucro Presumido.');
+      });
+    };
+  }
+
   // Service de requisição da lista de atividades e respectivos códigos
   AtividadesService.$inject = ['$http', 'ApiBasePath'];
   function AtividadesService($http, ApiBasePath) {
@@ -85,6 +109,20 @@
       });
       return response;
     };
+  }
+
+  LucroPresumidoService.$inject = ['$http', 'ApiBasePath'];
+  function LucroPresumidoService($http, ApiBasePath) {
+    var service = this;
+
+    service.getLucroPresumido = function (faturamento, folha) {
+      var response = $http({
+        method: "GET",
+        url: (ApiBasePath + "/rest/simulador/imposto/lucropresumido"),
+        params: {faturamento: faturamento, folha: folha}
+      });
+      return response;
+    }
   }
 
 })();
