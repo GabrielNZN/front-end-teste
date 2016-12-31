@@ -38,70 +38,75 @@
     <!-- Início do cálculo de imposto Simples Nacional -->
     <div ng-show="mostrarSimples" ng-controller="CalcularSimplesNacional as simples" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
       <h3 class="text-center"><b>Simples Nacional</b></h3>
-      <label for="fatAnterior">Faturamento Anterior:</label>
-      <div class="input-group">
-        <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses" ng-model="simples.fatAnterior"></input>
-      </div>
+      <form>
+        <label for="fatAnterior">Faturamento Anterior:</label>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses" ng-model="simples.fatAnterior"></input>
+        </div>
 
-      <label for="faturamento">Faturamento Atual:</label>
-      <div class="input-group">
-        <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="simples.faturamento"></input>
-      </div>
+        <label for="faturamento">Faturamento Atual:</label>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="simples.faturamento"></input>
+        </div>
 
-      <label for="folha">Folha de Pagamento:</label>
-      <div class="input-group">
-        <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="simples.folha"></input>
-      </div>
+        <label for="folha">Folha de Pagamento:</label>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="simples.folha"></input>
+        </div>
 
-      <label for="codAtividade">Atividade da Empresa: </label>
-      <div class="input-group">
-        <select id="atividades" ng-model="simples.descAtividade" ng-options="descricao for descricao in simples.descricaoAtividades"></select>
-      </div>
+        <label for="codAtividade">Atividade da Empresa: </label>
+        <div class="input-group">
+          <select id="atividades" ng-model="simples.descAtividade" ng-options="descricao for descricao in simples.descricaoAtividades"></select>
+        </div>
 
-      <div class="text-center">
-        <button class="btn btn-success btn-lg" ng-click="simples.calcularImpostoSimples(simples.descAtividade); mostrarResultado = true">Calcular</button>
-      </div>
-      <hr>
-      <!-- Apresentação da saída dos dados do Simples Nacional -->
-      <h3 class="text-center" ng-show="mostrarResultado">Resultado:</h3>
-      <div class="text-center col-md-6" ng-repeat="imposto in simples.impostoSimples">
-        <p>Tipo: {{ imposto['descricao'] }}</p>
-        <p>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</p>
-        <p>Alíquota: {{ imposto['aliquota'] }}%</p>
+        <div class="text-center">
+          <button class="btn btn-success btn-lg" ng-click="simples.calcularImpostoSimples(simples.descAtividade); mostrarResultado = true">Calcular</button>
+          <input class="btn btn-danger btn-lg" type="reset" value="Limpar" ng-click="mostrarResultado = false" />
+        </div>
         <hr>
-      </div>
+        <!-- Apresentação da saída dos dados do Simples Nacional -->
+        <h3 class="text-center" ng-show="mostrarResultado">Resultado:</h3>
+        <div class="text-center col-md-6" ng-repeat="imposto in simples.impostoSimples" ng-show="mostrarResultado">
+          <p>Tipo: {{ imposto['descricao'] }}</p>
+          <p>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</p>
+          <p>Alíquota: {{ imposto['aliquota'] }}%</p>
+          <hr>
+        </div>
+      </form>
     </div>
     <!-- Início de cálculo de imposto Lucro Presumido -->
     <div ng-show="mostrarLucro" ng-controller="CalcularLucroPresumido as lucro" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
       <h3 class="text-center"><b>Lucro Presumido</b></h3>
+      <form>
+        <label for="faturamento">Faturamento Atual:</label>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="lucro.faturamento"></input>
+        </div>
 
-      <label for="faturamento">Faturamento Atual:</label>
-      <div class="input-group">
-        <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="lucro.faturamento"></input>
-      </div>
+        <label for="folha">Folha de Pagamento:</label>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="lucro.folha"></input>
+        </div>
 
-      <label for="folha">Folha de Pagamento:</label>
-      <div class="input-group">
-        <span class="input-group-addon">R$</span>
-        <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="lucro.folha"></input>
-      </div>
-
-      <div class="text-center">
-        <button class="btn btn-success btn-lg" ng-click="lucro.calcularImpostoLucro(); mostrarResultado = true">Calcular</button>
-      </div>
-      <hr>
-      <!-- Apresentação da saída dos dados do Lucro Presumido -->
-      <h3 class="resultado text-center" ng-show="mostrarResultado">Resultado:</h3>
-      <div class="text-center col-md-4" ng-repeat="imposto in lucro.impostoLucro">
-        <p>Tipo: {{ imposto['descricao'] }}</p>
-        <p>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</p>
-        <p>Alíquota: {{ imposto['aliquota'] }}%</p>
+        <div class="text-center">
+          <button class="btn btn-success btn-lg" ng-click="lucro.calcularImpostoLucro(); mostrarResultado = true">Calcular</button>
+          <input class="btn btn-danger btn-lg" type="reset" value="Limpar" ng-click="mostrarResultado = false" />
+        </div>
         <hr>
-      </div>
+        <!-- Apresentação da saída dos dados do Lucro Presumido -->
+        <h3 class="resultado text-center" ng-show="mostrarResultado">Resultado:</h3>
+        <div class="text-center col-md-4" ng-show="mostrarResultado" ng-repeat="imposto in lucro.impostoLucro">
+          <p>Tipo: {{ imposto['descricao'] }}</p>
+          <p>Valor: {{ imposto['valor'] | currency: "R$" : 2}}</p>
+          <p>Alíquota: {{ imposto['aliquota'] }}%</p>
+          <hr>
+        </div>
+      </form>
     </div>
   </div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
