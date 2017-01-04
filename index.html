@@ -42,19 +42,19 @@
         <label for="fatAnterior">Faturamento Anterior:</label>
         <div class="input-group">
           <span class="input-group-addon">R$</span>
-          <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses" ng-model="simples.fatAnterior"></input>
+          <input type="text" class="form-control" placeholder="Faturamento dos últimos 12 meses" size="14" maxlength="14" ng-model="simples.fatAnterior" onkeyup="moeda(this);"></input>
         </div>
 
         <label for="faturamento">Faturamento Atual:</label>
         <div class="input-group">
           <span class="input-group-addon">R$</span>
-          <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="simples.faturamento"></input>
+          <input type="text" class="form-control" placeholder="Faturamento do mês atual" size="14" maxlength="14" ng-model="simples.faturamento" onkeyup="moeda(this);"></input>
         </div>
 
         <label for="folha">Folha de Pagamento:</label>
         <div class="input-group">
           <span class="input-group-addon">R$</span>
-          <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="simples.folha"></input>
+          <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" size="14" maxlength="14" ng-model="simples.folha" onkeyup="moeda(this);"></input>
         </div>
 
         <label for="codAtividade">Atividade da Empresa: </label>
@@ -84,13 +84,13 @@
         <label for="faturamento">Faturamento Atual:</label>
         <div class="input-group">
           <span class="input-group-addon">R$</span>
-          <input type="text" class="form-control" placeholder="Faturamento do mês atual" ng-model="lucro.faturamento"></input>
+          <input type="text" class="form-control" placeholder="Faturamento do mês atual" size="14" maxlength="14" ng-model="lucro.faturamento" onkeyup="moeda(this);"></input>
         </div>
 
         <label for="folha">Folha de Pagamento:</label>
         <div class="input-group">
           <span class="input-group-addon">R$</span>
-          <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" ng-model="lucro.folha"></input>
+          <input type="text" class="form-control" placeholder="Valor total da folha de pagamento no mês atual" size="14" maxlength="14" ng-model="lucro.folha" onkeyup="moeda(this);"></input>
         </div>
 
         <div class="text-center">
@@ -111,5 +111,6 @@
   </div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="mascara.js"></script>
 </body>
 </html>

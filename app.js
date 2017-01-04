@@ -35,14 +35,33 @@
 
     // Calcular o valor total do imposto Simples Nacional
     simples.calcularImpostoSimples = function (descAtividade) {
+
       simples.descIndex = simples.descricaoAtividades.indexOf(descAtividade);
       simples.codAtividade = simples.atividades['objects'].map(function (c) {
         return c.cod;
       });
       simples.codAtividade = simples.codAtividade[simples.descIndex];
 
+      // Converter input de faturamento anterior para formato decimal
+      var faturamentoAnterior = simples.fatAnterior;
+      faturamentoAnterior = faturamentoAnterior.replace(/\./g, "");
+      faturamentoAnterior = faturamentoAnterior.replace(/\,/g, "");
+      faturamentoAnterior = faturamentoAnterior.replace(/(\d{1})(\d{2})$/,"$1.$2");
+
+      // Converter input de faturamento atual para formato decimal
+      var faturamento = simples.folha;
+      faturamento = faturamento.replace(/\./g, "");
+      faturamento = faturamento.replace(/\,/g, "");
+      faturamento = faturamento.replace(/(\d{1})(\d{2})$/,"$1.$2");
+
+      // Converter input de folha para formato decimal
+      var folha = simples.folha;
+      folha = folha.replace(/\./g, "");
+      folha = folha.replace(/\,/g, "");
+      folha = folha.replace(/(\d{1})(\d{2})$/,"$1.$2");
+
       // Resolver promessa do Cálculo de Simples Nacional
-      var promiseSimples = SimplesNacionalService.getSimplesNacional(simples.fatAnterior, simples.faturamento, simples.folha, simples.codAtividade);
+      var promiseSimples = SimplesNacionalService.getSimplesNacional(faturamentoAnterior, faturamento, folha, simples.codAtividade);
 
       promiseSimples.then(function (response) {
         simples.resultados = response.data;
@@ -67,14 +86,26 @@
 
     // Calcular valor total do Lucro Presumido
     lucro.calcularImpostoLucro = function () {
-      var promiseLucro = LucroPresumidoService.getLucroPresumido(lucro.faturamento, lucro.folha);
+
+      // Converter input de faturamento para formato decimal
+      var faturamento = lucro.faturamento;
+      faturamento = faturamento.replace(/\./g, "");
+      faturamento = faturamento.replace(/\,/g, "");
+      faturamento = faturamento.replace(/(\d{1})(\d{2})$/,"$1.$2");
+
+      // Converter input de folha para formato decimal
+      var folha = lucro.folha;
+      folha = folha.replace(/\./g, "");
+      folha = folha.replace(/\,/g, "");
+      folha = folha.replace(/(\d{1})(\d{2})$/,"$1.$2");
+
+      var promiseLucro = LucroPresumidoService.getLucroPresumido(faturamento, folha);
 
       promiseLucro.then(function (response) {
         lucro.resultados = response.data;
         lucro.impostoLucro = lucro.resultados['objects'].map(function (r) {
           return r;
         });
-        console.log(lucro.impostoLucro);
       })
       .catch(function (error) {
         console.log('Oops, não pude processar os dados do Lucro Presumido.');
